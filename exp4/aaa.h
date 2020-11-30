@@ -19,8 +19,7 @@ class MyString {
 private:
     char* p = nullptr;
     size_t length = 0;
-    size_t capacity = 4;
-    void resize();
+    const size_t capacity = 256;
     int* buildNext()const;
 public:
     void remove(const size_t, const size_t);

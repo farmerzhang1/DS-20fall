@@ -16,18 +16,10 @@ MyString::MyString(char* str, size_t len) {
     p[len] = '\0';
 }
 
-void MyString::resize() {
-    if (!p) return;
-    char* q = new char[length+1];
-    strcpy(q, p);
-    delete [] p;
-    p = new char[capacity *= 2];
-    strcpy(p, q);
-}
-
 MyString::~MyString() {
     if (p) delete [] p;
 }
+
 MyString::MyString(){
     p = new char[capacity];
 }
@@ -52,8 +44,6 @@ int* MyString::buildNext() const {
         }
         else j = next[j];
     }
-    for (int i = 0; i < length; i++) cout << next[i] << ' ';
-    cout << endl;
     return next;
 }
 
@@ -78,6 +68,7 @@ void MyString::replace (const MyString& s, const MyString& t) {
     size_t slen = s.length, tlen = t.length;
     while ((index = find(s, index)) != -1) {
         remove(index, slen);
+        cout << "removed: " << p << endl;
         insert(index, t);
         index += tlen;
     }
@@ -90,7 +81,7 @@ void MyString::remove(size_t index, const size_t len = 1) {
 
 void MyString::insert(const size_t index, const MyString& s) {
     if (index > length) throw invalid_argument("index out of range");
-    while (length + s.length > capacity) resize();
+    if (length + s.length > capacity) throw invalid_argument("s too big");
     char* q = p + length + s.length;
     char* r = p + length;
     while (r >= p + index) {
@@ -104,7 +95,7 @@ void MyString::insert(const size_t index, const MyString& s) {
 }
 
 void MyString::concatenate(const MyString& s) {
-    while (length + s.length > capacity) resize();
+    if (length + s.length > capacity) throw invalid_argument("s too big");
     strcat(p, s.p);
 }
 
@@ -121,13 +112,14 @@ istream& operator>>(istream& is, MyString& s) {
 }
 
 int main(void) {
-    MyString aa("testabcdefgaaabc");
+    MyString aa("abcabcabc");
     cout << aa << endl;
-    cout << aa.substr(1, 3) << endl;
-    aa.insert(8, "\"test\"");
+    aa.insert(9, "\"test\"");
     cout << aa << endl;
     aa.remove(9, 6);
     cout << aa << endl;
-    aa.replace("abcdefghabcde", "ws replaced ws");
+    aa.replace("ca", "ws replaced ws");
+    aa.concatenate("aaa");
+    cout << aa << endl;
     cout << aa << endl;
 }

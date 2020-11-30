@@ -10,6 +10,7 @@ private:
 public:
     BinTree();
     BinTree(const T&);
+    ~BinTree();
     int size();
     BinNode<T>* root() const;
     // insert into empty tree

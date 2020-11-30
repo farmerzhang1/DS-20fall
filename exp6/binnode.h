@@ -7,6 +7,7 @@ template <typename T> struct BinNode {
     BinNode<T>* parent;
     BinNode<T>* lc; BinNode<T>* rc;//父节点及左右孩子
     int height; //
+    ~BinNode();
 // 构造函数
     BinNode();
     BinNode ( T e, BinNode<T>* p = nullptr, BinNode<T>* lc = nullptr, BinNode<T>* rc = nullptr, int h = 0);

@@ -5,6 +5,7 @@
 using namespace std;
 #ifndef BN_I_H
 #define BN_I_H
+template <typename T> BinNode<T>::~BinNode() {}
 template <typename T> BinNode<T>::BinNode() : parent ( nullptr ), lc ( nullptr ), rc ( nullptr ), height ( 0 ) { }
 template <typename T> BinNode<T>::BinNode ( T e, BinNode<T>* p, BinNode<T>* lc, BinNode<T>* rc, int h) : data ( e ), parent ( p ), lc ( lc ), rc ( rc ), height ( h ) { }
 

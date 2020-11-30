@@ -5,7 +5,17 @@
 #include <iostream>
 #include <bitset>
 #include <memory>
-
+/****************************************************************
+ * NOTICE!!!
+ * 這個代碼智能指針和raw pointer混用！
+ * 非常危險
+ * 要該的話要把binnode和bintree的指針都改成unique pointer
+ * 可以在網上搜一下binary tree smart pointer
+ * stackexchange有個code review的網站（我才發現
+ * 還有，這個huffman壓縮is CHEATING!!!
+ * 解壓的時候沒有用文件里的數據
+ * 用的是壓縮過程中的
+ ****************************************************************/
 using namespace std;
 struct huffchar {
     char c;     // since utf-8 也是用8位8位這樣存的，ascii還是不ascii沒差
@@ -195,7 +205,7 @@ void Huffman::encode (char* myzip, long& zip_length) {
 
 void Huffman::unzip(const char* filename) {
     ifstream in (filename, ios::in);
-    ofstream out ("unzip.txt", ios::out);
+    ofstream out ("unzip.png", ios::out);
     if (!in || !out) {
         cerr << "file " << filename << " not found" << endl;
         cerr << "or 'unzip.txt' won't open" << endl;
@@ -223,7 +233,7 @@ void Huffman::unzip(const char* filename) {
 }
 int main(void) {
     Huffman hfm;
-    hfm.zip("test");
+    hfm.zip("df3.png");
     hfm.unzip("whatever.myzip");
     return 0;
 }
